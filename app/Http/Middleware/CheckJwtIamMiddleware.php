@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Core\Domain\Models\UserAccount;
+use App\Core\Domain\Service\GetIPInterface;
 use App\Core\Domain\Service\JwtManagerInterface;
 use App\Exceptions\UserException;
 use Closure;
@@ -15,13 +16,16 @@ class CheckJwtIamMiddleware
 {
     private JwtManagerInterface $jwt_manager;
     public UserAccount $account;
+    private GetIPInterface $get_ip;
 
     /**
      * @param JwtManagerInterface $jwt_manager
+     * @param GetIPInterface $get_ip
      */
-    public function __construct(JwtManagerInterface $jwt_manager)
+    public function __construct(JwtManagerInterface $jwt_manager, GetIPInterface $get_ip)
     {
         $this->jwt_manager = $jwt_manager;
+        $this->get_ip = $get_ip;
     }
 
     /**
@@ -38,7 +42,8 @@ class CheckJwtIamMiddleware
         if (!$jwt) {
             UserException::throw('Token is not sent', 901);
         }
-        $account = $this->jwt_manager->decode($jwt);
+        $ip = $this->get_ip->getIP();
+        $account = $this->jwt_manager->decode($jwt, $ip);
         $request->attributes->add(['account' => $account]);
 
         return $next($request);

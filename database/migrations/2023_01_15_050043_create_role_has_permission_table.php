@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,15 +12,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('user_type', 16);
-            $table->string('name', 128);
-            $table->string('email')->index();
-            $table->string('no_telp', 16);
-            $table->string('password', 64);
+        Schema::create('role_has_permission', function (Blueprint $table) {
+            $table->integer('id')->primary();
+            $table->integer('role_id')->index();
+            $table->integer('permission_id')->index();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('role_id')->references('id')->on('role');
+            $table->foreign('permission_id')->references('id')->on('permission');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('role_has_permission');
     }
 };

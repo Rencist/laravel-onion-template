@@ -12,21 +12,23 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function successWithData($data): JsonResponse
+    public function successWithData($data, $message): JsonResponse
     {
         return response()->json(
             [
                 'success' => true,
                 'data' => $data,
+                'message' => $message,
             ]
         );
     }
 
-    protected function success(): JsonResponse
+    protected function success($message): JsonResponse
     {
         return response()->json(
             [
                 'success' => true,
+                'message' => $message,
             ]
         );
     }

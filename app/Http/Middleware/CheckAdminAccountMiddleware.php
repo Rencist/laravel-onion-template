@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Core\Domain\Models\User\UserType;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Exceptions\UserException;
 use Closure;
@@ -39,7 +38,7 @@ class CheckAdminAccountMiddleware
             UserException::throw("admin account could not be decoded", 2056);
         }
         $user = $this->user_repository->find($account->getUserId());
-        $user->beginVerification()->checkUserType(UserType::ADMIN)->verify();
+        $user->beginVerification()->checkRoleId(2)->verify();
         return $next($request);
     }
 }

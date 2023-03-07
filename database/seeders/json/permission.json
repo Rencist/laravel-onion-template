@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "routes": "users.index"
+    },
+    {
+        "id": 2,
+        "routes": "users.delete"
+    },
+    {
+        "id": 3,
+        "routes": "roles.index"
+    },
+    {
+        "id": 4,
+        "routes": "roles.store"
+    },
+    {
+        "id": 5,
+        "routes": "roles.delete"
+    },
+    {
+        "id": 6,
+        "routes": "roles.update"
+    },
+    {
+        "id": 7,
+        "routes": "roles_assign.store"
+    },
+    {
+        "id": 8,
+        "routes": "roles_unassign.store"
+    },
+    {
+        "id": 9,
+        "routes": "permissions.index"
+    },
+    {
+        "id": 10,
+        "routes": "permissions.store"
+    },
+    {
+        "id": 11,
+        "routes": "permissions.delete"
+    },
+    {
+        "id": 12,
+        "routes": "permissions.update"
+    },
+    {
+        "id": 13,
+        "routes": "roles.detail"
+    }
+]

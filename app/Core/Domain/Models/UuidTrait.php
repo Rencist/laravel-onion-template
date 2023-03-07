@@ -8,21 +8,21 @@ use Ramsey\Uuid\Uuid;
 
 trait UuidTrait
 {
-    private string $uuid;
+    private ?string $uuid;
 
     /**
      * @param string $uuid
      * @throws Exception
      */
-    public function __construct(string $uuid)
+    public function __construct(?string $uuid)
     {
-        if (!Uuid::isValid($uuid)) {
+        if ($uuid && !Uuid::isValid($uuid)) {
             UserException::throw("invalid uuid", 1000, 422);
         }
         $this->uuid = $uuid;
     }
 
-    public function toString(): string
+    public function toString(): ?string
     {
         return $this->uuid;
     }
