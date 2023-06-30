@@ -13,10 +13,10 @@ class GetRolePermissionResponse implements JsonSerializable
      * @param int $id
      * @param string $route
      */
-    public function __construct(int $id, string $routes)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
-        $this->route = $routes;
+        $this->route = $name;
     }
 
     public function jsonSerialize(): array

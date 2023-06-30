@@ -23,14 +23,12 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             $payload[] = [
                 'id' => UserId::generate()->toString(),
-                'role_id' => $user['role_id'],
+                'roles_id' => $user['role_id'],
                 'email' => $user['email'],
-                'no_telp' => $user['no_telp'],
-                'is_valid' => $user['is_valid'],
                 'name' => $user['name'],
                 'password' => Hash::make($user['password']),
             ];
         }
-        DB::table('user')->insert($payload);
+        DB::table('users')->insert($payload);
     }
 }

@@ -51,13 +51,13 @@ class MeService
             UserException::throw("user tidak ditemukan", 1006, 404);
         }
         
-        $routes = $this->role_has_permission_repository->findByRoleId($role->getId());
-        $routes_array = array_map(function (RoleHasPermission $route) {
+        $name = $this->role_has_permission_repository->findByRoleId($role->getId());
+        $name_array = array_map(function (RoleHasPermission $route) {
             return new RoutesResponse(
-                $this->permission_repository->find($route->getPermissionId())->getRoutes()
+                $this->permission_repository->find($route->getPermissionId())->getName()
             );
-        }, $routes);
+        }, $name);
 
-        return new MeResponse($user, $role->getName(), $routes_array);
+        return new MeResponse($user, $role->getName(), $name_array);
     }
 }

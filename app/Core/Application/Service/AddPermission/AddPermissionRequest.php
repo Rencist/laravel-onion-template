@@ -4,19 +4,19 @@ namespace App\Core\Application\Service\AddPermission;
 
 class AddPermissionRequest
 {
-    private string $routes;
+    private string $name;
 
     /**
-     * @param string $routes
+     * @param string $name
      */
 
-     public function __construct(string $routes)
+     public function __construct(string $name)
      {
-        $this->routes = $routes;
+        $this->name = $name;
      }
 
-     public function getRoutes(): string
+     public function getName(): string
      {
-        return $this->routes;
+        return $this->name;
      }
 }

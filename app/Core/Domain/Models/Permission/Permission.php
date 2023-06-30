@@ -7,26 +7,26 @@ use Exception;
 class Permission
 {
     private int $id;
-    private string $routes;
+    private string $name;
 
     /**
      * @param int $id
-     * @param string $routes
+     * @param string $name
      */
-    public function __construct(int $id, string $routes)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
-        $this->routes = $routes;
+        $this->name = $name;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(string $routes, int $id): self
+    public static function create(string $name, int $id): self
     {
         return new self(
             $id,
-            $routes,
+            $name,
         );
     }
 
@@ -41,8 +41,8 @@ class Permission
     /**
      * @return string
      */
-    public function getRoutes(): string
+    public function getName(): string
     {
-        return $this->routes;
+        return $this->name;
     }
 }

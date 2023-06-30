@@ -26,7 +26,6 @@ class GetUserListResponse implements JsonSerializable
             'id' => $this->user->getId()->toString(),
             'name' => $this->user->getName(),
             'email' => $this->user->getEmail()->toString(),
-            'no_telp' => $this->user->getNoTelp(),
             'role' => $this->role,
         ];
     }

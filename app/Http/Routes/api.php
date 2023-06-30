@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ProvinsiController;
-use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleHasPermissionController;
   
@@ -16,14 +15,12 @@ Route::get('hello', function () {
 // User
 Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
-Route::post('/user_verification', [UserController::class, 'userVerification']);
-Route::get('/user_verification', [UserController::class, 'reUserVerification']);
 
-// Provinsi
-Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
-
-// Kabupaten
-Route::get('/kabupaten', [KabupatenController::class, 'kabupaten']);
+// Region
+Route::get('/province', [RegionController::class, 'getProvince']);
+Route::get('/city', [RegionController::class, 'getCity']);
+Route::get('/subdistrict', [RegionController::class, 'getSubdistrict']);
+Route::get('/village', [RegionController::class, 'getVillage']);
 
 // Forgot Password
 Route::group(['prefix' => '/forgot_password'], function () {

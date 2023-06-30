@@ -3,16 +3,12 @@
         "name": "ADMIN TESTING",
         "role_id": 2,
         "email": "admin@testing.com",
-        "no_telp": "085257188594",
-        "is_valid": 1,
         "password": "Testing@2023"
     },
     {
         "name": "USER TESTING",
         "role_id": 1,
         "email": "user@testing.com",
-        "no_telp": "085257188591",
-        "is_valid": 1,
         "password": "Testing@2023"
     }
 ]

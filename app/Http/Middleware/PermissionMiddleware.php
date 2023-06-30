@@ -41,7 +41,7 @@ class PermissionMiddleware
         $role_has_permission = $this->role_has_permission_repository->findByRoleId($role->getId());
         foreach ($role_has_permission as $key) {
             $permission_repository = $this->permission_repository->find($key->getPermissionId());
-            if ($permission == $permission_repository->getRoutes()) {
+            if ($permission == $permission_repository->getName()) {
                 return $next($request);
             }
         }

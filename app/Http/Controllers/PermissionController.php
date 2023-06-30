@@ -20,10 +20,10 @@ class PermissionController extends Controller
     public function add(Request $request, AddPermissionService $service): JsonResponse
     {
         $request->validate([
-            'routes' => 'unique:permission',
+            'name' => 'unique:permissions',
         ]);
         $input = new AddPermissionRequest(
-            $request->input('routes')
+            $request->input('name')
         );
 
         DB::beginTransaction();
@@ -58,7 +58,7 @@ class PermissionController extends Controller
     {
         $input = new UpdatePermissionRequest(
             $request->input('id'),
-            $request->input('routes')
+            $request->input('name')
         );
 
         DB::beginTransaction();

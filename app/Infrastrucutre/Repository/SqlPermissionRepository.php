@@ -8,11 +8,11 @@ use App\Core\Domain\Repository\PermissionRepositoryInterface;
 
 class SqlPermissionRepository implements PermissionRepositoryInterface
 {
-    public function persist(Permission $permission): void
+    public function persist(Permission $permissions): void
     {
-        DB::table('permission')->upsert([
-            'id' => $permission->getId(),
-            'routes' => $permission->getRoutes(),
+        DB::table('permissions')->upsert([
+            'id' => $permissions->getId(),
+            'name' => $permissions->getName(),
         ], 'id');
     }
 
@@ -21,7 +21,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
      */
     public function find(int $id): ?Permission
     {
-        $row = DB::table('permission')->where('id', $id)->first();
+        $row = DB::table('permissions')->where('id', $id)->first();
 
         if (!$row) {
             return null;
@@ -37,7 +37,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     {
         return new Permission(
             $row->id,
-            $row->routes,
+            $row->name,
         );
     }
 
@@ -46,7 +46,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
      */
     public function findLargestId(): ?int
     {
-        $row = DB::table('permission')->max('id');
+        $row = DB::table('permissions')->max('id');
 
         if (!$row) {
             return null;
@@ -57,7 +57,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
 
     public function getWithPagination(int $page, int $per_page): array
     {
-        $rows = DB::table('permission')
+        $rows = DB::table('permissions')
             ->paginate($per_page, ['*'], 'permission_page', $page);
         $permissions = [];
 
@@ -72,25 +72,25 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
 
     public function getAll(): array
     {
-        $rows = DB::table('permission')->get();
+        $rows = DB::table('permissions')->get();
 
         return $this->constructFromRows($rows->all());
     }
 
     private function constructFromRows(array $rows): array
     {
-        $permission = [];
+        $permissions = [];
         foreach ($rows as $row) {
-            $permission[] = new Permission(
+            $permissions[] = new Permission(
                 $row->id,
-                $row->routes,
+                $row->name,
             );
         }
-        return $permission;
+        return $permissions;
     }
 
     public function delete(int $id): void
     {
-        DB::table('permission')->where('id', $id)->delete();
+        DB::table('permissions')->where('id', $id)->delete();
     }
 }

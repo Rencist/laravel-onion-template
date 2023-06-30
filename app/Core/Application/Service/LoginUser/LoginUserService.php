@@ -36,9 +36,6 @@ class LoginUserService
         if (!$user) {
             UserException::throw("User Tidak Ditemukan", 1006, 404);
         }
-        if ($user->getIsValid() == false) {
-            UserException::throw("Mohon Periksa Email Anda Untuk Proses Verifikasi Akun", 1007, 404);
-        }
         $user->beginVerification()
             ->checkPassword($request->getPassword())
             ->verify();

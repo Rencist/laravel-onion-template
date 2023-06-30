@@ -24,6 +24,6 @@ class RoleSeeder extends Seeder
                 'name' => $role['name']
             ];
         }
-        DB::table('role')->insert($payload);
+        DB::table('roles')->insert($payload);
     }
 }

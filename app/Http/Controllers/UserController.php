@@ -34,16 +34,12 @@ class UserController extends Controller
             'email' => 'email|email',
             'password' => 'min:8|max:64|string',
             'name' => 'min:8|max:128|string',
-            'no_telp' => 'min:10|max:15|string',
-            'status' => 'not_in:2'
         ]);
 
         $input = new RegisterUserRequest(
             $request->input('email'),
-            $request->input('no_telp'),
             $request->input('name'),
             $request->input('password'),
-            $request->input('status')
         );
 
         DB::beginTransaction();
@@ -68,31 +64,6 @@ class UserController extends Controller
         );
         $response = $service->execute($input);
         return $this->successWithData($response, "Berhasil Login");
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function userVerification(Request $request, UserVerificationService $service): JsonResponse
-    {
-        $input = new UserVerificationRequest(
-            $request->input('email'),
-            $request->input('token')
-        );
-        $service->execute($input);
-        return $this->success("Berhasil Verifikasi User");
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function reUserVerification(Request $request, UserVerificationService $service): JsonResponse
-    {
-        $input = new ReUserVerificationRequest(
-            $request['email']
-        );
-        $service->reExecute($input);
-        return $this->success("Berhasil Mengirim Ulang Tautan");
     }
 
     /**

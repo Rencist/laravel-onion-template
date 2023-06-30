@@ -25,7 +25,7 @@ class AddPermissionService
     public function execute(AddPermissionRequest $request)
     {
         $id = $this->permission_repository->findLargestId();
-        $permission = Permission::create($request->getRoutes(), ++$id);
+        $permission = Permission::create($request->getName(), ++$id);
         $this->permission_repository->persist($permission);
     }
 }

@@ -8,11 +8,11 @@ use App\Core\Domain\Repository\RoleRepositoryInterface;
 
 class SqlRoleRepository implements RoleRepositoryInterface
 {
-    public function persist(Role $role): void
+    public function persist(Role $roles): void
     {
-        DB::table('role')->upsert([
-            'id' => $role->getId(),
-            'name' => $role->getName(),
+        DB::table('roles')->upsert([
+            'id' => $roles->getId(),
+            'name' => $roles->getName(),
         ], 'id');
     }
 
@@ -21,7 +21,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
      */
     public function find(int $id): ?Role
     {
-        $row = DB::table('role')->where('id', $id)->first();
+        $row = DB::table('roles')->where('id', $id)->first();
 
         if (!$row) {
             return null;
@@ -35,7 +35,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
      */
     public function findLargestId(): ?int
     {
-        $row = DB::table('role')->max('id');
+        $row = DB::table('roles')->max('id');
 
         if (!$row) {
             return null;
@@ -57,7 +57,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
 
     public function getWithPagination(int $page, int $per_page): array
     {
-        $rows = DB::table('role')
+        $rows = DB::table('roles')
             ->paginate($per_page, ['*'], 'role_page', $page);
         $roles = [];
 
@@ -72,6 +72,6 @@ class SqlRoleRepository implements RoleRepositoryInterface
 
     public function delete(int $id): void
     {
-        DB::table('role')->where('id', $id)->delete();
+        DB::table('roles')->where('id', $id)->delete();
     }
 }

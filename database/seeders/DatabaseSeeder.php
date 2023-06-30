@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\VillageSeeder;
+use Database\Seeders\SubdistrictSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,8 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            ProvinsiSeeder::class,
-            KabupatenSeeder::class,
+            ProvinceSeeder::class,
+            CitySeeder::class,
+            SubdistrictSeeder::class,
+            VillageSeeder::class,
             RoleSeeder::class,
             PermissionSeeder::class,
             RoleHasPermissionSeeder::class,

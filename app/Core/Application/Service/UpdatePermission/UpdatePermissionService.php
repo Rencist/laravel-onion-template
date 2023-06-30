@@ -31,7 +31,7 @@ class UpdatePermissionService
         }
         $permission = new Permission(
             $request->getId(),
-            $request->getRoutes()
+            $request->getName()
         );
         
         $this->permission_repository->persist($permission);

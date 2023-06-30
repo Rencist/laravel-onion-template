@@ -1,54 +1,54 @@
 [
     {
         "id": 1,
-        "routes": "users.index"
+        "name": "users.index"
     },
     {
         "id": 2,
-        "routes": "users.delete"
+        "name": "users.delete"
     },
     {
         "id": 3,
-        "routes": "roles.index"
+        "name": "roles.index"
     },
     {
         "id": 4,
-        "routes": "roles.store"
+        "name": "roles.store"
     },
     {
         "id": 5,
-        "routes": "roles.delete"
+        "name": "roles.delete"
     },
     {
         "id": 6,
-        "routes": "roles.update"
+        "name": "roles.update"
     },
     {
         "id": 7,
-        "routes": "roles_assign.store"
+        "name": "roles_assign.store"
     },
     {
         "id": 8,
-        "routes": "roles_unassign.store"
+        "name": "roles_unassign.store"
     },
     {
         "id": 9,
-        "routes": "permissions.index"
+        "name": "permissions.index"
     },
     {
         "id": 10,
-        "routes": "permissions.store"
+        "name": "permissions.store"
     },
     {
         "id": 11,
-        "routes": "permissions.delete"
+        "name": "permissions.delete"
     },
     {
         "id": 12,
-        "routes": "permissions.update"
+        "name": "permissions.update"
     },
     {
         "id": 13,
-        "routes": "roles.detail"
+        "name": "roles.detail"
     }
 ]

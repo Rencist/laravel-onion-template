@@ -11,16 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class SqlUserRepository implements UserRepositoryInterface
 {
-    public function persist(User $user): void
+    public function persist(User $users): void
     {
-        DB::table('user')->upsert([
-            'id' => $user->getId()->toString(),
-            'role_id' => $user->getRoleId(),
-            'email' => $user->getEmail()->toString(),
-            'no_telp' => $user->getNoTelp(),
-            'name' => $user->getName(),
-            'is_valid' => $user->getIsValid(),
-            'password' => $user->getHashedPassword()
+        DB::table('users')->upsert([
+            'id' => $users->getId()->toString(),
+            'roles_id' => $users->getRoleId(),
+            'email' => $users->getEmail()->toString(),
+            'name' => $users->getName(),
+            'password' => $users->getHashedPassword()
         ], 'id');
     }
 
@@ -29,7 +27,7 @@ class SqlUserRepository implements UserRepositoryInterface
      */
     public function find(UserId $id): ?User
     {
-        $row = DB::table('user')->where('id', $id->toString())->first();
+        $row = DB::table('users')->where('id', $id->toString())->first();
 
         if (!$row) {
             return null;
@@ -43,7 +41,7 @@ class SqlUserRepository implements UserRepositoryInterface
      */
     public function findByEmail(Email $email): ?User
     {
-        $row = DB::table('user')->where('email', $email->toString())->first();
+        $row = DB::table('users')->where('email', $email->toString())->first();
 
         if (!$row) {
             return null;
@@ -57,7 +55,7 @@ class SqlUserRepository implements UserRepositoryInterface
      */
     public function findByRoleId(int $role_id): ?array
     {
-        $rows = DB::table('user')->where('role_id', $role_id)->get();
+        $rows = DB::table('users')->where('roles_id', $role_id)->get();
 
         if (!$rows) {
             return null;
@@ -75,11 +73,9 @@ class SqlUserRepository implements UserRepositoryInterface
         foreach ($rows as $row) {
             $users[] = new User(
                 new UserId($row->id),
-                $row->role_id,
+                $row->roles_id,
                 new Email($row->email),
-                $row->no_telp,
                 $row->name,
-                $row->is_valid,
                 $row->password
             );
         }
@@ -88,7 +84,7 @@ class SqlUserRepository implements UserRepositoryInterface
 
     public function getWithPagination(int $page, int $per_page): array
     {
-        $rows = DB::table('user')
+        $rows = DB::table('users')
             ->paginate($per_page, ['*'], 'user_page', $page);
         $users = [];
 
@@ -103,6 +99,6 @@ class SqlUserRepository implements UserRepositoryInterface
 
     public function delete(UserId $id): void
     {
-        DB::table('user')->where('id', $id->toString())->delete();
+        DB::table('users')->where('id', $id->toString())->delete();
     }
 }

@@ -21,9 +21,9 @@ class PermissionSeeder extends Seeder
         foreach ($permissions as $permission) {
             $payload[] = [
                 'id' => $permission['id'],
-                'routes' => $permission['routes']
+                'name' => $permission['name']
             ];
         }
-        DB::table('permission')->insert($payload);
+        DB::table('permissions')->insert($payload);
     }
 }

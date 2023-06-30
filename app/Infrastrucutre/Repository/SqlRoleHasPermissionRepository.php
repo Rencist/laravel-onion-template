@@ -9,12 +9,12 @@ use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 
 class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInterface
 {
-    public function persist(RoleHasPermission $role_has_permission): void
+    public function persist(RoleHasPermission $roles_has_permissions): void
     {
-        DB::table('role_has_permission')->upsert([
-            'id' => $role_has_permission->getId(),
-            'role_id' => $role_has_permission->getRoleId(),
-            'permission_id' => $role_has_permission->getPermissionId(),
+        DB::table('roles_has_permissions')->upsert([
+            'id' => $roles_has_permissions->getId(),
+            'roles_id' => $roles_has_permissions->getRoleId(),
+            'permissions_id' => $roles_has_permissions->getPermissionId(),
         ], 'id');
     }
 
@@ -23,7 +23,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
      */
     public function find(int $id): ?RoleHasPermission
     {
-        $row = DB::table('role_has_permission')->where('id', $id)->first();
+        $row = DB::table('roles_has_permissions')->where('id', $id)->first();
 
         if (!$row) {
             return null;
@@ -35,9 +35,9 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByRoleId(int $role_id): ?array
+    public function findByRoleId(int $roles_id): ?array
     {
-        $row = DB::table('role_has_permission')->where('role_id', $role_id)->get();
+        $row = DB::table('roles_has_permissions')->where('roles_id', $roles_id)->get();
 
         if (!$row) {
             return null;
@@ -49,9 +49,9 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByPermissionId(int $permission_id): ?array
+    public function findByPermissionId(int $permissions_id): ?array
     {
-        $rows = DB::table('role_has_permission')->where('permission_id', $permission_id)->get();
+        $rows = DB::table('roles_has_permissions')->where('permissions_id', $permissions_id)->get();
 
         if (!$rows) {
             return null;
@@ -69,8 +69,8 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         foreach ($rows as $row) {
             $role_has_permissions[] = new RoleHasPermission(
                 $row->id,
-                $row->role_id,
-                $row->permission_id,
+                $row->roles_id,
+                $row->permissions_id,
             );
         }
         return $role_has_permissions;
@@ -81,7 +81,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
      */
     public function findLargestId(): ?int
     {
-        $row = DB::table('role_has_permission')->max('id');
+        $row = DB::table('roles_has_permissions')->max('id');
 
         if (!$row) {
             return null;
@@ -92,14 +92,14 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
 
     public function delete(int $id): void
     {
-        DB::table('role_has_permission')->where('id', $id)->delete();
+        DB::table('roles_has_permissions')->where('id', $id)->delete();
     }
 
-    public function findByBoth(int $role_id, int $permission_id): ?RoleHasPermission
+    public function findByBoth(int $roles_id, int $permissions_id): ?RoleHasPermission
     {
-        $row = DB::table('role_has_permission')
-            ->where('role_id', $role_id)
-            ->where('permission_id', $permission_id)
+        $row = DB::table('roles_has_permissions')
+            ->where('roles_id', $roles_id)
+            ->where('permissions_id', $permissions_id)
             ->first();
 
         if (!$row) {
@@ -109,13 +109,13 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         return $this->constructFromRows([$row])[0];
     }
 
-    public function getPermissionByRole(int $role_id): ?array
+    public function getPermissionByRole(int $roles_id): ?array
     {
         $permission = [];
-        $raw = DB::table('role_has_permission')
-        ->leftJoin('permission', 'role_has_permission.permission_id', '=', 'permission.id')
-        ->where('role_id', '=', $role_id)
-        ->get(['permission.id', 'routes']);
+        $raw = DB::table('roles_has_permissions')
+        ->leftJoin('permissions', 'roles_has_permissions.permissions_id', '=', 'permissions.id')
+        ->where('roles_id', '=', $roles_id)
+        ->get(['permissions.id', 'name']);
 
         foreach ($raw as $r) {
             array_push($permission, $r);

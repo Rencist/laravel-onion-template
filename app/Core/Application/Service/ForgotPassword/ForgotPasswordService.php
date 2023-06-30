@@ -35,11 +35,6 @@ class ForgotPasswordService
     {
         $email = $input->getEmail();
         $user = $this->user_repository->findByEmail($email);
-        // check is valid
-        $isValid = $user->getIsValid();
-        if (!$isValid) {
-            UserException::throw("User belum melakukan verifikasi", 6666, 404);
-        }
         // create token
         $forgot = $this->jwt_manager->createForgotPasswordToken($user);
         // save to db
@@ -77,12 +72,6 @@ class ForgotPasswordService
         $password_reset = $this->password_reset_repository->findByEmail($user->getEmail()->toString());
         if (!$password_reset) {
             UserException::throw("Token tidak ditemukan", 6668, 401);
-        }
-
-        // check is valid
-        $isValid = $user->getIsValid();
-        if (!$isValid) {
-            UserException::throw("User belum melakukan verifikasi", 6666, 401);
         }
 
         // check for payload

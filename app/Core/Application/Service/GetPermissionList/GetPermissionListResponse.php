@@ -21,7 +21,7 @@ class GetPermissionListResponse implements JsonSerializable
     {
         return [
             'id' => $this->permission->getId(),
-            'routes' => $this->permission->getRoutes(),
+            'name' => $this->permission->getName(),
         ];
     }
 }

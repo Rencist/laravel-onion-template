@@ -20,7 +20,7 @@ class RoleController extends Controller
     public function add(Request $request, AddRoleService $service): JsonResponse
     {
         $request->validate([
-            'name' => 'unique:role',
+            'name' => 'unique:roles',
         ]);
         $input = new AddRoleRequest(
             $request->input('name')

@@ -21,10 +21,10 @@ class RoleHasPermissionSeeder extends Seeder
         foreach ($role_has_permissions as $role_has_permission) {
             $payload[] = [
                 'id' => $role_has_permission['id'],
-                'role_id' => $role_has_permission['role_id'],
-                'permission_id' => $role_has_permission['permission_id']
+                'roles_id' => $role_has_permission['role_id'],
+                'permissions_id' => $role_has_permission['permission_id']
             ];
         }
-        DB::table('role_has_permission')->insert($payload);
+        DB::table('roles_has_permissions')->insert($payload);
     }
 }

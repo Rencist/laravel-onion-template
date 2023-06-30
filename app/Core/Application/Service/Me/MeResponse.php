@@ -9,18 +9,18 @@ class MeResponse implements JsonSerializable
 {
     private User $user;
     private string $role;
-    private array $routes;
+    private array $name;
 
     /**
      * @param User $user
      * @param string $role
-     * @param array $routes
+     * @param array $name
      */
-    public function __construct(User $user, string $role, array $routes)
+    public function __construct(User $user, string $role, array $name)
     {
         $this->user = $user;
         $this->role = $role;
-        $this->routes = $routes;
+        $this->name = $name;
     }
 
     public function jsonSerialize(): array
@@ -28,11 +28,10 @@ class MeResponse implements JsonSerializable
         $response = [
             'name' => $this->user->getName(),
             'email' => $this->user->getEmail()->toString(),
-            'no_telp' => $this->user->getNoTelp(),
             'permission' => [
                 'role_id' => $this->user->getRoleId(),
                 'role' => $this->role,
-                'routes' => $this->routes,
+                'name' => $this->name,
             ]
         ];
         return $response;
