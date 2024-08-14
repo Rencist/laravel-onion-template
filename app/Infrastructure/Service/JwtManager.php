@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastrucutre\Service;
+namespace App\Infrastructure\Service;
 
 use App\Core\Domain\Models\Email;
 use App\Core\Domain\Models\UserAccount;
