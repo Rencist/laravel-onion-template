@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastrucutre\Repository;
+namespace App\Infrastructure\Repository;
 
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Permission\Permission;

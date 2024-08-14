@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastrucutre\Repository;
+namespace App\Infrastructure\Repository;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -113,9 +113,9 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     {
         $permission = [];
         $raw = DB::table('roles_has_permissions')
-        ->leftJoin('permissions', 'roles_has_permissions.permissions_id', '=', 'permissions.id')
-        ->where('roles_id', '=', $roles_id)
-        ->get(['permissions.id', 'name']);
+            ->leftJoin('permissions', 'roles_has_permissions.permissions_id', '=', 'permissions.id')
+            ->where('roles_id', '=', $roles_id)
+            ->get(['permissions.id', 'name']);
 
         foreach ($raw as $r) {
             array_push($permission, $r);
